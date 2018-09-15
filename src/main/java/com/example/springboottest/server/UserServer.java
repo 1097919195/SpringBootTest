@@ -4,13 +4,18 @@ import com.example.springboottest.bean.UserData;
 import com.example.springboottest.dao.UserDao;
 import com.example.springboottest.utils.NoteUtil;
 import com.example.springboottest.utils.ResponseData;
+import com.example.springboottest.utils.redis.JedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class UserServer {
     @Autowired
     private UserDao userdao;
+    @Autowired
+    private JedisUtil jedisUtil;
 
     //模拟用户注册        http://localhost:8080/user/register?account=test2&password=123 (注意数据库字段可不可以为空的问题)
     public ResponseData<UserData> register(UserData userData){
@@ -48,6 +53,10 @@ public class UserServer {
             data.setState(1);
             return data;
         }else if(mdPassword.equals(man.getPassword())){
+            String token = UUID.randomUUID().toString();//设置登陆token
+            man.setLoginToken(token);
+            jedisUtil.set("userToken" + man.getId(), token, 120);//将token写入缓存
+
             data.setMessage("登陆成功");
             data.setState(0);
             data.setData(man);
