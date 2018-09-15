@@ -18,8 +18,19 @@ public class UserController {
 
     @Autowired
     UserServer server;
-    @RequestMapping("/getUserData")
-    public ResponseData<UserData> getUserData(UserData userData) {
-        return server.getData(userData);
+
+    @RequestMapping("/register")
+    public ResponseData<UserData> register(UserData userData) {
+        return server.register(userData);
+    }
+
+    @RequestMapping("/login")
+    public ResponseData<UserData> login(UserData userData) {
+        return server.login(userData);
+    }
+
+    @RequestMapping("/change")
+    public ResponseData<UserData> change(UserData userData) {
+        return server.change(userData);
     }
 }

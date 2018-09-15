@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>  <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboottest.dao.UserDao">
+    <!-- 根据账户名查询 -->
+    <select id="findByUserAccount" parameterType="com.example.springboottest.bean.UserData"
+            resultType="com.example.springboottest.bean.UserData">
+        SELECT * FROM tb_user WHERE account = #{account} 
+    </select>
+
+    <!-- 根据id查询 -->
+    <select id="findByUserId" parameterType="com.example.springboottest.bean.UserData" resultType="com.example.springboottest.bean.UserData">
+        SELECT * FROM tb_user WHERE id = #{id}
+    </select>
+
+    <!-- 新增用户 -->
+    <insert id="insert" parameterType="com.example.springboottest.bean.UserData">
+		<![CDATA[
+
+			INSERT INTO tb_user (
+			    account,password,userName,sex
+			) VALUES (
+				#{account},#{password},#{userName},#{sex}
+				)
+
+        ]]>
+	</insert>
+
+    <!-- 修改记录 -->
+    <update id="updatePassword" parameterType="com.example.springboottest.bean.UserData">
+        <![CDATA[ UPDATE tb_user]]>
+        <set>
+            <if test="password != null and password !='' "><![CDATA[ password = #{password}]]></if>
+        </set>
+        <![CDATA[ WHERE id = #{id}]]>
+
+    </update>
+
+</mapper>
