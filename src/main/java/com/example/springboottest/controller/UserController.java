@@ -41,12 +41,12 @@ public class UserController {
     }
 
     @RequestMapping("/quitLogin")//退出登录
-    public ResponseData<String> quitLogin(String userId, HttpServletRequest request, HttpServletResponse response) {
-        ResponseData<String> data=new ResponseData<String>();
-        if(jedisUtil.getByKey("userToken"+userId)!=null){
-            jedisUtil.delByKey("userToken"+userId);//清除token
+    public ResponseData<String> quitLogin(String id, HttpServletRequest request, HttpServletResponse response) {
+        ResponseData<String> data = new ResponseData<>();
+        if (jedisUtil.getByKey("userToken" + id) != null) {
+            jedisUtil.delByKey("userToken" + id);//清除token
             data.setTokenState(0);
-        }else{
+        } else {
             data.setTokenState(1);
         }
         return data;
