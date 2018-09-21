@@ -50,7 +50,7 @@ public class CheckTokenInterceptor implements HandlerInterceptor {
         logger.info("redis" + userToken);
 
         if (token != null && token.equals(userToken)) {
-            jedisUtil.set("userToken" + request.getParameter("id"), token, 500);//将token写入缓存,并延长存活时间
+            jedisUtil.set("userToken" + request.getParameter("id"), token, 7200);//将token写入缓存,并延长存活时间
             return true;
         } else {
             data.setTokenState(1);

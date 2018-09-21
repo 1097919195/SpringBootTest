@@ -55,7 +55,7 @@ public class UserServer {
         }else if(mdPassword.equals(man.getPassword())){
             String token = UUID.randomUUID().toString();//设置登陆token
             man.setLoginToken(token);
-            jedisUtil.set("userToken" + man.getId(), token, 120);//将token写入缓存 单位秒
+            jedisUtil.set("userToken" + man.getId(), token, 7200);//将token写入缓存 单位秒
 
             data.setMessage("登陆成功");
             data.setState(0);
