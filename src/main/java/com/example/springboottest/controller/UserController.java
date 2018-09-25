@@ -13,10 +13,7 @@ import com.example.springboottest.utils.AppPush;
 import com.example.springboottest.utils.ResponseData;
 import com.example.springboottest.utils.redis.JedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -122,7 +119,6 @@ public class UserController {
     }
 
     @RequestMapping("/upload")//单个文件上传      https://blog.csdn.net/linzhiqiang0316/article/details/77016997
-    @ResponseBody
     public ResponseData<String> handleFileUpload(String id, @RequestParam("file") MultipartFile file) {
         File fileDir = new File("FileDir");
         if (!fileDir.isDirectory()) {//创建目录
@@ -160,6 +156,42 @@ public class UserController {
             data.setMessage("上传失败，因为文件是空的");
             return data;
         }
+    }
+
+    @RequestMapping(value = "/download", method = RequestMethod.GET)//下载文件测试（在网页中直接打开就好了 http://192.168.199.163:8080/user/download）
+    public void testDownload(HttpServletResponse res) {
+//        String fileName = "android.apk";
+//        res.setHeader("content-type", "application/octet-stream");
+//        res.setContentType("application/octet-stream");//告诉浏览器输出内容为流
+        String fileName = "android.apk";
+        res.setHeader("content-type", "application/vnd.android.package-archive");
+        res.setContentType("application/vnd.android.package-archive");
+        res.setHeader("Content-Disposition", "attachment;filename=" + fileName);//Content-Disposition中指定的类型是文件的扩展名，并且弹出的下载对话框中的文件类型图片是按照文件的扩展名显示的，点保存后，文件以filename的值命名，保存类型以Content中设置的为准。注意：在设置Content-Disposition头字段之前，一定要设置Content-Type头字段。  
+        byte[] buff = new byte[1024];
+        BufferedInputStream bis = null;
+        OutputStream os = null;
+        try {
+            os = res.getOutputStream();
+            bis = new BufferedInputStream(new FileInputStream(new File("d://"
+                    + fileName)));
+            int i = bis.read(buff);
+            while (i != -1) {
+                os.write(buff, 0, buff.length);
+                os.flush();//清空缓存用的，一般write()方法后必须跟一个flush()以释放buffer
+                i = bis.read(buff);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (bis != null) {
+                try {
+                    bis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        System.out.println("success");
     }
 
 }
