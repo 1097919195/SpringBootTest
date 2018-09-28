@@ -31,6 +31,7 @@ public class MyWebAppConfigurer extends WebMvcConfigurerAdapter {
         super.addInterceptors(registry);
     }
 
+    //url访问静态资源
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         File fileDir = new File("FileDir");
