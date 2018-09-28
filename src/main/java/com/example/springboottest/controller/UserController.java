@@ -136,6 +136,7 @@ public class UserController {
                 BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(
                                 fileDir + File.separator + new File(file.getOriginalFilename())));
                 System.out.println(file.getName());
+                System.out.println(fileDir.getAbsolutePath());
                 out.write(file.getBytes());
                 out.flush();
                 out.close();
@@ -163,7 +164,7 @@ public class UserController {
 //        String fileName = "android.apk";
 //        res.setHeader("content-type", "application/octet-stream");
 //        res.setContentType("application/octet-stream");//告诉浏览器输出内容为流
-        String fileName = "android.apk";
+        String fileName = "android.apk";//下载APK时，放在外面直接访问好了，避免了解析错误这个问题，但是手机端要用更新工具下载的才能解析
         res.setHeader("content-type", "application/vnd.android.package-archive");
         res.setContentType("application/vnd.android.package-archive");
         res.setHeader("Content-Disposition", "attachment;filename=" + fileName);//Content-Disposition中指定的类型是文件的扩展名，并且弹出的下载对话框中的文件类型图片是按照文件的扩展名显示的，点保存后，文件以filename的值命名，保存类型以Content中设置的为准。注意：在设置Content-Disposition头字段之前，一定要设置Content-Type头字段。  
