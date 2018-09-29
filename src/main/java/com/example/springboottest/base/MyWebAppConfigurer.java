@@ -27,7 +27,7 @@ public class MyWebAppConfigurer extends WebMvcConfigurerAdapter {
         // 多个拦截器组成一个拦截器链
         // addPathPatterns 用于添加拦截规则
         // excludePathPatterns 用户排除拦截
-        registry.addInterceptor(check).addPathPatterns("/**").excludePathPatterns("/user/login","/user/register","/user/download","/OTA/**","/FileDir/**");
+        registry.addInterceptor(check).addPathPatterns("/**").excludePathPatterns("/user/login","/user/register","/user/download","/OTA/**","/FileDir/**","/File/**");
         super.addInterceptors(registry);
     }
 
@@ -44,6 +44,7 @@ public class MyWebAppConfigurer extends WebMvcConfigurerAdapter {
         //其中OTA表示访问的前缀。"file:D:/OTA/"是文件真实的存储路径
         registry.addResourceHandler("/OTA/**").addResourceLocations("file:D:/OTA/");
         registry.addResourceHandler("/FileDir/**").addResourceLocations("file:"+fileDir.getAbsolutePath()+"/");
+//        registry.addResourceHandler("/File/**").addResourceLocations("file:C:/Users/Administrator/Desktop/FileDir/");
     }
 
 }
