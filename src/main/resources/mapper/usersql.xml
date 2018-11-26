@@ -4,7 +4,7 @@
     <!-- 根据账户名查询 -->
     <select id="findByUserAccount" parameterType="com.example.springboottest.bean.UserData"
             resultType="com.example.springboottest.bean.UserData">
-        SELECT * FROM tb_user WHERE account = #{account} 
+        SELECT * FROM tb_user WHERE account = #{account}
     </select>
 
     <!-- 根据id查询 -->
@@ -25,7 +25,7 @@
         ]]>
 	</insert>
 
-    <!-- 修改记录 -->
+    <!-- 修改记录 (在javabean中直接把原来的password更改为传入的final_password，数据库没有插入，此处判断也就是password)-->
     <update id="updatePassword" parameterType="com.example.springboottest.bean.UserData">
         <![CDATA[ UPDATE tb_user]]>
         <set>
