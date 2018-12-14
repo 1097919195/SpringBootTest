@@ -175,6 +175,7 @@ public class UserController {
             os = res.getOutputStream();
             bis = new BufferedInputStream(new FileInputStream(new File("d://"
                     + fileName)));
+            buff = new byte[bis.available()];//保证长度有效即apk解析正确，如果长度不对的话就会导致apk解析失败
             int i = bis.read(buff);
             while (i != -1) {
                 os.write(buff, 0, buff.length);
