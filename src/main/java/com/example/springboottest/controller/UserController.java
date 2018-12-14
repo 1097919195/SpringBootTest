@@ -178,14 +178,14 @@ public class UserController {
             int i = bis.read(buff);
             while (i != -1) {
                 os.write(buff, 0, buff.length);
-                os.flush();//清空缓存用的，一般write()方法后必须跟一个flush()以释放buffer
+                os.flush();//一个比喻就相当于把水管内的水全部排出来，防止丢失数据，一般write()方法后必须跟一个flush()以释放buffer
                 i = bis.read(buff);
             }
 //            int i = 0;
 //            while ((i = bis.read(buff)) != -1) {
 //                os.write(buff, 0, buff.length);
 //            }
-//            os.flush();//清空缓存用的，一般write()方法后必须跟一个flush()以释放buffer
+//            os.flush();//一个比喻就相当于把水管内的水全部排出来，防止丢失数据，一般write()方法后必须跟一个flush()以释放buffer
 //            os.close();
         } catch (IOException e) {
             e.printStackTrace();
