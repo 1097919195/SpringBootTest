@@ -22,7 +22,7 @@ public class AppPush {
         pushRequest.setTargetValue("ALL"); //根据Target来设定，如Target=DEVICE, 则对应的值为 设备id1,设备id2. 多个值使用逗号分隔.(帐号与设备有一次最多100个的限制)
 //        pushRequest.setTarget("ALL"); //推送目标: DEVICE:推送给设备; ACCOUNT:推送给指定帐号,TAG:推送给自定义标签; ALL: 推送给全部
 //        pushRequest.setTargetValue("ALL"); //根据Target来设定，如Target=DEVICE, 则对应的值为 设备id1,设备id2. 多个值使用逗号分隔.(帐号与设备有一次最多100个的限制)
-        pushRequest.setPushType("NOTICE"); // 消息类型 MESSAGE NOTICE
+        pushRequest.setPushType("MESSAGE"); // 消息类型 MESSAGE NOTICE
         pushRequest.setDeviceType("ALL"); // 设备类型 ANDROID iOS ALL.
         // 推送配置
         pushRequest.setTitle("ALi Push Title"); // 消息的标题
