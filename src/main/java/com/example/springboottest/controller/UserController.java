@@ -1,26 +1,21 @@
 package com.example.springboottest.controller;
 
-import com.aliyuncs.DefaultAcsClient;
-import com.aliyuncs.exceptions.ClientException;
-import com.aliyuncs.profile.DefaultProfile;
-import com.aliyuncs.profile.IClientProfile;
-import com.aliyuncs.push.model.v20160801.PushRequest;
-import com.aliyuncs.push.model.v20160801.PushResponse;
-import com.aliyuncs.utils.ParameterHelper;
-import com.example.springboottest.server.UserServer;
 import com.example.springboottest.bean.UserData;
+import com.example.springboottest.server.UserServer;
 import com.example.springboottest.utils.AppPush;
 import com.example.springboottest.utils.ResponseData;
 import com.example.springboottest.utils.redis.JedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.Date;
 import java.util.List;
 
 
@@ -42,7 +37,7 @@ public class UserController {
         return server.register(userData);
     }
 
-    @RequestMapping("/login")//登录
+    @RequestMapping(value = "login", method = RequestMethod.POST)//登录
     public ResponseData<UserData> login(UserData userData) {
         return server.login(userData);
     }
@@ -134,7 +129,7 @@ public class UserController {
                  * 3、文件格式; 4、文件大小的限制;
                  */
                 BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(
-                                fileDir + File.separator + new File(file.getOriginalFilename())));
+                        fileDir + File.separator + new File(file.getOriginalFilename())));
                 System.out.println(file.getName());
                 System.out.println(fileDir.getAbsolutePath());
                 out.write(file.getBytes());
@@ -159,7 +154,8 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/download", method = RequestMethod.GET)//下载文件测试（在网页中直接打开就好了 http://192.168.199.163:8080/user/download）
+    @RequestMapping(value = "/download", method = RequestMethod.GET)
+//下载文件测试（在网页中直接打开就好了 http://192.168.199.163:8080/user/download）
     public void testDownload(HttpServletResponse res) {
 //        String fileName = "android.apk";
 //        res.setHeader("content-type", "application/octet-stream");
